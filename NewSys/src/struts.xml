@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+<constant name="struts.i18n.encoding" value="UTF-8"/>
+
+	<package name="cruddefault" extends="struts-default">
+		<interceptors>
+			<interceptor name="checklogin" class="com.mqif.action.login.LoginInterceptor"></interceptor>
+			<interceptor-stack name="crudStack">
+				<interceptor-ref name="store">
+					<param name="operationMode">AUTOMATIC</param>
+				</interceptor-ref>
+				<interceptor-ref name="paramsPrepareParamsStack"></interceptor-ref>
+				<interceptor-ref name="checklogin"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="crudStack" />
+		<global-results>
+			<result name="is_not_login">/WEB-INF/content/common/isnotlogin.jsp</result>
+		</global-results>
+	</package>
+
+</struts>
